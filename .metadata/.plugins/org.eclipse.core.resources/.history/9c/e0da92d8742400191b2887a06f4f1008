@@ -1,0 +1,5 @@
+package com.cg.banktransection.sender;
+
+public class Sender {
+
+}

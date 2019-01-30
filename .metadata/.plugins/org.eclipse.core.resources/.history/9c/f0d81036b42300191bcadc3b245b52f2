@@ -1,0 +1,10 @@
+package com.cg.messaging.service;
+
+public class HelloServiceImpl extends HelloService {
+
+	public void messageWrite() {
+		
+		
+	}
+	
+}

@@ -1,0 +1,16 @@
+package com.cg.messaging.sender;
+
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Sender {
+
+	RabbitMessagingTemplate template;
+
+	@Autowired
+	public Sender(RabbitMessagingTemplate template) {
+		
+		this.template = template;
+	}
+}

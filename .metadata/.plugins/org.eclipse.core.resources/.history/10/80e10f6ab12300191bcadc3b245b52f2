@@ -1,0 +1,17 @@
+package com.cg.messaging.resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cg.messaging.service.HelloService;
+
+@RestController
+public class Resource {
+
+	private HelloService helloService;
+	
+	@Autowired
+	public Resource(HelloService helloService) {
+		
+	}
+}

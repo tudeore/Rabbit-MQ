@@ -1,0 +1,5 @@
+package com.cg.messaging.service;
+
+public interface HelloService {
+
+}

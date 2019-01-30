@@ -1,0 +1,11 @@
+package com.cg.messagingreceiver.receiver;
+
+public class Receiver {
+
+	
+	@Bean
+	public Queue queue() {
+		
+		return new Queue("CustomerQ",false);
+	}
+}

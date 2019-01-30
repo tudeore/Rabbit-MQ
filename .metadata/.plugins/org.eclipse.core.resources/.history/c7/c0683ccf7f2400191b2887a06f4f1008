@@ -1,0 +1,5 @@
+package com.cg.banktransection.transaction;
+
+public class Transection {
+
+}

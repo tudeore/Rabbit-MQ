@@ -1,0 +1,15 @@
+package com.cg.messaging.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class HelloServiceImpl extends HelloService {
+
+	@Autowired
+	Sender sender;
+	
+	public void messageWrite() {
+		
+		sender.send();
+	}
+	
+}
