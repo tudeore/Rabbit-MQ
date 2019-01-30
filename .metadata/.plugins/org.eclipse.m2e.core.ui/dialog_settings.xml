@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\message-assignment\zuul-mmbank"/>
+			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\message-assignment\website"/>
+			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\message-assignment\eureka-server"/>
+			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\message-assignment\configuration-service"/>
+			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\message-assignment\bank-transection"/>
+			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\message-assignment\bankapp"/>
 			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\zuul-mmbank"/>
 			<item value="C:\Users\tudeore\Desktop\messaging-worksapce\website"/>
 		</list>

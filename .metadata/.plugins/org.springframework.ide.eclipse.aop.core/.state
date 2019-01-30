@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
+<aop-project name="messaging"/>
+<aop-project name="zuul-mmbank"/>
 <aop-project name="eureka-server"/>
 <aop-project name="bank-transection"/>
 <aop-project name="configuration-service"/>
