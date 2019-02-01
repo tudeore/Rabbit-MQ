@@ -70,33 +70,33 @@ public class TransactionResources {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	@PostMapping("/fundtransfer") public ResponseEntity<Transaction>
-	  fundTransfer(@RequestParam int senderAccountNumber,
-	  
-	  @RequestParam int receiverAccountNumber, @RequestParam double amount) {
-	  
-	  ResponseEntity<Double> balance = template
-	  .getForEntity("http://accountService/accounts/" + senderAccountNumber +
-	  "/balance", Double.class); double currentBalance = balance.getBody();
-	  
-	  Double newBalance1 =service.withDraw(currentBalance, senderAccountNumber, amount);
-	  
-	  //template.put("http://accountService/accounts/" + senderAccountNumber +
-	  //"?currentBalance=" + newBalance1, null);
-	  
-	  
-	  ResponseEntity<Double> balance2 = template
-	  .getForEntity("http://accountService/accounts/" + receiverAccountNumber +
-	  "/balance", Double.class); double currentBalance2 = balance2.getBody();
-	  
-	  Double newBalance2 = service.deposit(currentBalance2, receiverAccountNumber,
-	  amount);
-	  
-	  template.put("http://accountService/accounts/" + receiverAccountNumber +
-	  "?currentBalance=" + newBalance2, null); return new
-	  ResponseEntity<>(HttpStatus.OK);
-	  
-	  }
+	@PostMapping("/fundtransfer")
+	public ResponseEntity<Transaction> fundTransfer(@RequestParam int senderAccountNumber,
+
+			@RequestParam int receiverAccountNumber, @RequestParam double amount) {
+
+		ResponseEntity<Double> balance = template
+				.getForEntity("http://accountService/accounts/" + senderAccountNumber + "/balance", Double.class);
+		double currentBalance = balance.getBody();
+
+		Double newBalance1 = service.withDraw(currentBalance, senderAccountNumber, amount);
+
+		// template.put("http://accountService/accounts/" + senderAccountNumber +
+		// "?currentBalance=" + newBalance1, null);
+
+		ResponseEntity<Double> balance2 = template
+				.getForEntity("http://accountService/accounts/" + receiverAccountNumber + "/balance", Double.class);
+		double currentBalance2 = balance2.getBody();
+
+		Double newBalance2 = service.deposit(currentBalance2, receiverAccountNumber, amount);
+
+		/*
+		 * template.put("http://accountService/accounts/" + receiverAccountNumber +
+		 * "?currentBalance=" + newBalance2, null);
+		 */
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
 
 	@GetMapping("/statement")
 	public ResponseEntity<CurrentDataSet> getStatement() {

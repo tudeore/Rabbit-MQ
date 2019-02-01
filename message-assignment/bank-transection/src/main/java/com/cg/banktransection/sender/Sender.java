@@ -25,5 +25,4 @@ public class Sender {
 		
 		template.convertAndSend("updateBalance",transaction);
 	}
-	
 }

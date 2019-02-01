@@ -51,7 +51,7 @@ public class AccountResource {
 	}
 	
 	
-	@PutMapping("/{accountNumber}")
+	//@PutMapping("/{accountNumber}")
 	public void updateAccount(@PathVariable Integer accountNumber, @RequestParam Double currentBalance)
 	{
 		Account account = savingsAccountservice.getAccountById(accountNumber);

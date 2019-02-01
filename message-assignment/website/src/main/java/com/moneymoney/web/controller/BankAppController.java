@@ -35,7 +35,7 @@ public class BankAppController {
 		return "DepositForm";
 	}
 
-	@HystrixCommand(fallbackMethod="serverFallback")  // FALLBACK
+	@HystrixCommand(fallbackMethod="fallbackDeposit")  // FALLBACK
 	@RequestMapping("/deposit")
 	public String deposit(@ModelAttribute Transaction transaction, Model model) {
 
@@ -43,6 +43,11 @@ public class BankAppController {
 		//							http://localhost:8181/transaction/...
 		//							http://localhost:9696/transactions/deposit
 		model.addAttribute("message", "Transaction Successful!");
+		return "DepositForm";
+	}
+	
+	public String fallbackDeposit(@ModelAttribute Transaction transaction, Model model) {
+		model.addAttribute("message", "Transaction Service is out of service!!!");
 		return "DepositForm";
 	}
 
@@ -54,7 +59,7 @@ public class BankAppController {
 	}
 
 	
-	@HystrixCommand(fallbackMethod="serverFallback")   //FALLBACK
+	@HystrixCommand(fallbackMethod="fallbackWithdraw")   //FALLBACK
 	@RequestMapping("/withdraw")
 	public String withDraw(@ModelAttribute Transaction transaction, Model model) {
 
@@ -63,12 +68,18 @@ public class BankAppController {
 		return "withdrawForm";
 	}
 	
-	
-	public String serverFallback(@ModelAttribute Transaction transaction,Model model) { // SERVER FALLBACK
-		String message = "Transaction failed... Server under maintenance please try after some time !!!";
-		model.addAttribute("message", message);
-		return "serverStatus";
+	public String fallbackWithdraw(@ModelAttribute Transaction transaction, Model model) {
+		model.addAttribute("message", "Transaction Service is out of service!!!");
+		return "WithdrawForm";
 	}
+	
+	
+	/*
+	 * public String serverFallback(@ModelAttribute Transaction transaction,Model
+	 * model) { // SERVER FALLBACK String message =
+	 * "Transaction failed...Try After Some Time !!!"; model.addAttribute("message",
+	 * message); return "serverStatus"; }
+	 */
 	
 
 	@RequestMapping("/FUNDTRANSFER")
@@ -78,8 +89,9 @@ public class BankAppController {
 	}
 
 	
-	@HystrixCommand(fallbackMethod="fundtransferFallback")		//FALLBACK
+		//FALLBACK
 	@RequestMapping("/fundTransfer")
+	@HystrixCommand(fallbackMethod="fallbackFundTransfer")	
 	public String fundTransfer(@RequestParam("senderAccountNumber") int senderAccountNumber,
 			@RequestParam("receiverAccountNumber") int receiverAccountNumber, @RequestParam("amount") double amount,
 			Model model) {
@@ -94,16 +106,27 @@ public class BankAppController {
 		return "fundTransferForm";
 	}
 	
-	
-	public String fundtransferFallback(@RequestParam("senderAccountNumber") int senderAccountNumber,
+	public String fallbackFundTransfer(@RequestParam("senderAccountNumber") int senderAccountNumber,
 			@RequestParam("receiverAccountNumber") int receiverAccountNumber, @RequestParam("amount") double amount,
 			Model model) {
-		String message = "Transaction failed !!! Server issue please try after some time !!!";
-		model.addAttribute("message", message);
-		return "serverStatus";
+		model.addAttribute("message", "Transaction Service is out of service!!!");
+		return "fundTransferForm";
 	}
 	
-	@HystrixCommand(fallbackMethod="statementsFallback")
+	
+	
+	/*
+	 * public String fundtransferFallback(@RequestParam("senderAccountNumber") int
+	 * senderAccountNumber,
+	 * 
+	 * @RequestParam("receiverAccountNumber") int
+	 * receiverAccountNumber, @RequestParam("amount") double amount, Model model) {
+	 * model.addAttribute("message",
+	 * "Transaction failed !!! Server issue please try after some time !!!"); return
+	 * "fundTransferForm"; }
+	 */
+	
+	@HystrixCommand(fallbackMethod="fallbackStatement")
 	@RequestMapping("/statements")
 	public ModelAndView getStatements(@RequestParam("offset") int offset, @RequestParam("size") int size) {
 		CurrentDataSet storeDataset = restTemplate.getForObject("http://zuulServer/bankapp/transactions/statement",
@@ -129,25 +152,38 @@ public class BankAppController {
 		return new ModelAndView("Statements", "currentDataSet", dataSet);
 	}
 	
-	public ModelAndView statementsFallback(@RequestParam("offset") int offset, @RequestParam("size") int size) {
-		CurrentDataSet storeDataset = currentDataSet;
-		
-		int currentSize = size == 0 ? 5 : size;
-		int currentOffset = offset == 0 ? 1 : offset;
-		Link next = linkTo(methodOn(BankAppController.class).getStatements(currentOffset + currentSize, currentSize)).withRel("next");
-		Link previous = linkTo(methodOn(BankAppController.class).getStatements(currentOffset - currentOffset, currentSize)).withRel("previous");
-		List<Transaction> currentDataSetList = new ArrayList<Transaction>();
-		List<Transaction> transactions = currentDataSet.getTransactions();
-		System.out.println(transactions);
-		
-		for (int i = currentOffset - 1; i < currentSize + currentOffset - 1; i++) {
-			if((transactions.size()<=i && i>0) || currentOffset<1) break;
-			Transaction transaction = transactions.get(i);
-			currentDataSetList.add(transaction);
-		}
 
-		CurrentDataSet dataSet = new CurrentDataSet(currentDataSetList, next, previous);
-		 
-		return new ModelAndView("serverStatus", "currentDataSet",dataSet );
+	
+	/*
+	 * public ModelAndView statementsFallback(@RequestParam("offset") int
+	 * offset, @RequestParam("size") int size) { CurrentDataSet storeDataset =
+	 * currentDataSet;
+	 * 
+	 * int currentSize = size == 0 ? 5 : size; int currentOffset = offset == 0 ? 1 :
+	 * offset; Link next =
+	 * linkTo(methodOn(BankAppController.class).getStatements(currentOffset +
+	 * currentSize, currentSize)).withRel("next"); Link previous =
+	 * linkTo(methodOn(BankAppController.class).getStatements(currentOffset -
+	 * currentOffset, currentSize)).withRel("previous"); List<Transaction>
+	 * currentDataSetList = new ArrayList<Transaction>(); List<Transaction>
+	 * transactions = currentDataSet.getTransactions();
+	 * System.out.println(transactions);
+	 * 
+	 * for (int i = currentOffset - 1; i < currentSize + currentOffset - 1; i++) {
+	 * if((transactions.size()<=i && i>0) || currentOffset<1) break; Transaction
+	 * transaction = transactions.get(i); currentDataSetList.add(transaction); }
+	 * 
+	 * CurrentDataSet dataSet = new CurrentDataSet(currentDataSetList, next,
+	 * previous);
+	 * 
+	 * return new ModelAndView("serverStatus", "currentDataSet",dataSet ); }
+	 */
+	
+	public ModelAndView fallbackStatement(@RequestParam("offset") int offset, @RequestParam("size") int size) {
+		//model.addAttribute("message", "Transaction Service is out of service!!!");
+		ModelAndView modelView = new ModelAndView();
+		modelView.addObject("message", "Transaction Service is out of service!!!");
+		modelView.setViewName("statements");
+		return modelView;
 	}
 }

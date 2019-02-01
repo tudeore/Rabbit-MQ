@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Transaction failed... Server under maintenance please try after some time !!!</h1>
+	<h1>Transaction failed... please try after some time !!!</h1>
 </body>
 </html>
