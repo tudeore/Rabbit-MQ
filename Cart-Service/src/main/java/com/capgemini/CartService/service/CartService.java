@@ -1,16 +1,38 @@
 package com.capgemini.CartService.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.capgemini.CartService.entity.Cart;
-import com.capgemini.CartService.entity.Product;
+
 
 public interface CartService {
 
-	public Cart getCartById(Integer userId);
-	
-	public void RemoveFromCart();
-	
-	public void updateCart();
+	public Optional<Cart> getCartById(Integer userId);
 
-	void addToCart(Product product);
+	public List<Cart> getAllCarts();
+
+	public Cart addCart(Cart cart);
+
+	public Cart updateCart(Cart cart);
+
+	double cartTotal(Cart cart);
+
+	public void deleteCartById(int cartId);
 	
+	
+	
+	
+//	public Cart getcartById(int cartid);
+//
+//	public Cart updateCart(Cart cart);
+//
+//	public List<Cart> getallcarts();
+//
+//	public void deleteCart(int cartid);
+//	
+//	public double cartTotal(Cart cart);
+//	
+//	public Cart addCart(Cart cart);
+
 }

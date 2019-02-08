@@ -9,7 +9,7 @@ import java.util.Set;
  *
  */
 public class FoodItems {
-
+	
 	private String foodName;		//foodName
 	private boolean veg;			
 	private Double price;			//price
@@ -93,5 +93,4 @@ public class FoodItems {
 		return "FoodItems [foodName=" + foodName + ", veg=" + veg + ", price=" + price + ", description=" + description
 				+ ", foodPhotos=" + foodPhotos + "]";
 	}
-	
 }

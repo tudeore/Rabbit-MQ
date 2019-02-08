@@ -30,7 +30,7 @@ public class Product {
 	}
 
 	public void setFoodName(String foodName) {
-		this.foodName = foodName;
+		this.foodName = foodName;	
 	}
 
 	public double getPrice() {
@@ -40,6 +40,5 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
 	
 }

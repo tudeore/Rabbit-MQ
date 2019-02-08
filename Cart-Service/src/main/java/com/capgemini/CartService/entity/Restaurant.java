@@ -10,14 +10,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Restaurant {
 
 	@Id
-	private Integer restaurantId;
-	private String name;
-	private Address address;
-	private Set<FoodItems> foodItems;			//food names
-	private Map<Integer, Integer> ratings;
-	private Map<Integer, String> reviews;
-	private String type;
-	private Set<String> photos;	
+	private Integer restaurantId;			//restuarantId
+	private String name; 					//food Name
+	private Address address; 				//address of Restaurant
+	private Set<FoodItems> foodItems;		//	food list
+	private Map<Integer, Integer> ratings;		//ratings of hotel
+	private Map<Integer, String> reviews;		//reviews
+	private String type;						//type : veg or non veg
+	private Set<String> photos;				//photos
 
 	public Restaurant() {
 		super();
@@ -106,6 +106,5 @@ public class Restaurant {
 				+ foodItems + ", ratings=" + ratings + ", reviews=" + reviews + ", type=" + type + ", photos=" + photos
 				+ "]";
 	}
-	
 	
 }
